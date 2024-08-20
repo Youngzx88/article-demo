@@ -1,0 +1,90 @@
+$Cname: 'xfe-switch';
+$border-width-x: 2px;
+$border-width-y: 1px;
+$border-radius: 14px;
+$ball-width: 24px;
+$ball-height: 24px;
+$ball-initial-top: 2px;
+$ball-initial-left: 2px;
+$animation-time: 200ms;
+
+@keyframes loading-rotate {
+  100% {
+    transform: rotate(1turn);
+  }
+}
+
+.#{$Cname} {
+  --checked-color: #46c560;
+  --unchecked-color: #d3d2d3;
+  --width: 46px;
+  --height: 28px;
+
+  min-width: var(--width);
+  height: var(--height);
+  position: relative;
+  display: inline-flex;
+
+  &-checkbox {
+    min-width: var(--width);
+    height: var(--height);
+    box-sizing: border-box;
+    padding: $border-width-y $border-width-x;
+    border-radius: $border-radius;
+    background: var(--unchecked-color);
+    overflow: hidden;
+    // active 样式
+    &-checked {
+      background: var(--checked-color);
+      .#{$Cname}-ball {
+        left: calc(100% - $ball-width - $border-width-x);
+      }
+      .#{$Cname}-inner {
+        margin: 0 calc($ball-width + 5px) 0 5px;
+      }
+    }
+    // disable 样式
+    &-disabled {
+      cursor: not-allowed;
+      opacity: 0.4;
+    }
+  }
+
+  &-ball {
+    width: $ball-width;
+    height: $ball-height;
+    background: #fff;
+    border-radius: 50%;
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2;
+    top: $ball-initial-top;
+    left: $ball-initial-left;
+    transition: all $animation-time;
+    box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.2), 0 2px 11.5px 0 rgba(0, 0, 0, 0.08), -1px 2px 2px 0 rgba(0, 0, 0, 0.1);
+  }
+
+  &-inner {
+    font-size: 14px;
+    position: relative;
+    z-index: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 5px 0 calc($ball-width + 5px);
+    height: 100%;
+    color: #fff;
+    transition: margin $animation-time;
+  }
+
+  &-spin {
+    width: 10px;
+    height: 10px;
+    animation: loading-rotate 1s linear infinite;
+    border: 2px solid #99c3fc;
+    border-radius: 50%;
+    border-top: 2px solid #fff;
+  }
+}
